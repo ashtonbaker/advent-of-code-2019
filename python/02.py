@@ -1,35 +1,32 @@
 #!/usr/bin/python3
 
-import operator
+import intcode
 
-with open('../input/02.txt', 'r') as f:
-    data = f.read()
+def run_with_noun_verb(noun, verb):
+    with open('../input/02.txt', 'r') as f:
+        data = f.read()
 
-program = list(map(lambda x: int(x), data.split(',')))
-
-def process_opcode(program, index):
-
-    result = program.copy()
-    opcode = program[index]
-    input1 = program[index + 1]
-    input2 = program[index + 2]
-    output = program[index + 3]
-
-    if opcode == 1:
-        result[output] = program[input1] + program[input2]
-    elif opcode == 2:
-        result[output] = program[input1] * program[input2]
-
-    return result
-
-program[1] = 12
-program[2] = 2
-
-index = 0
-
-while program[index] != 99:
-    program = process_opcode(program, index)
-    index += 4
+    program = list(map(lambda x: int(x), data.split(',')))
+    program[1] = noun
+    program[2] = verb
 
 
-print(program)
+    computer = intcode.computer(program)
+    computer.run()
+
+    return computer.memory[0]
+
+
+def main():
+    print("Part 1:")
+    print(run_with_noun_verb(12, 2))
+
+    print("\nPart 2:")
+    for noun in range(99):
+        for verb in range(99):
+            if run_with_noun_verb(noun, verb) == 19690720:
+                print(100 * noun + verb)
+                return
+
+if __name__ == '__main__':
+    main()
