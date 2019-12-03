@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import math
+import utilities
 
 def fuel_function(x):
     return max(math.floor(x / 3.0) - 2, 0)
@@ -13,8 +14,9 @@ def fuel_requirements(x):
         return fuel_req + fuel_requirements(fuel_req)
 
 def main():
-    with open('../input/01.txt', 'r') as f:
-        modules = [int(x) for x in f.read().splitlines()]
+    input_data = utilities.data(1)
+
+    modules = [int(x) for x in input_data.splitlines()]
 
     print('Part 1:')
     fuels = [fuel_function(x) for x in modules]

@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
 import intcode
+import utilities
 
-def run_with_noun_verb(noun, verb):
-    with open('../input/02.txt', 'r') as f:
-        data = f.read()
+def run_noun_verb_program(noun, verb):
+    data = utilities.data(2)
 
     program = list(map(lambda x: int(x), data.split(',')))
     program[1] = noun
@@ -19,12 +19,12 @@ def run_with_noun_verb(noun, verb):
 
 def main():
     print("Part 1:")
-    print(run_with_noun_verb(12, 2))
+    print(run_noun_verb_program(12, 2))
 
     print("\nPart 2:")
     for noun in range(99):
         for verb in range(99):
-            if run_with_noun_verb(noun, verb) == 19690720:
+            if run_noun_verb_program(noun, verb) == 19690720:
                 print(100 * noun + verb)
                 return
 
