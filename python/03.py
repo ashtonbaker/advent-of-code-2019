@@ -58,8 +58,10 @@ def main():
                     intersections.add((cursor[0], cursor[1], prev_dist + distance_travelled))
 
     solution = min([abs(point[0]) + abs(point[1]) for point in intersections])
+    print("Part 1:")
     print(solution)
 
+    print("\nPart 2:")
     print(min([point[2] for point in intersections]))
 
 
